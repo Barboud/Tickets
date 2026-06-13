@@ -1,0 +1,15 @@
+package net.hackyourfuture.tickets.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateTicketDTO {
+    private String title;
+    private String description;
+    private String status;
+    private Integer projectId;
+}
