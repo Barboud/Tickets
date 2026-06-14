@@ -25,9 +25,10 @@ CREATE TABLE assignees (
     id SERIAL PRIMARY KEY,
     ticket_id INT NOT NULL,
     user_id INT NOT NULL,
-    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (ticket_id) REFERENCES tickets(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE (ticket_id, user_id)
 );
 
 CREATE INDEX tickets_title_idx ON tickets(title);
+CREATE INDEX tickets_description_idx ON tickets(description);
