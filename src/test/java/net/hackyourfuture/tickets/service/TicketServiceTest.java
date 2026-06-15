@@ -2,7 +2,8 @@ package net.hackyourfuture.tickets.service;
 
 import net.hackyourfuture.tickets.dto.CreateTicketDTO;
 import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
-import net.hackyourfuture.tickets.model.Ticket;
+import net.hackyourfuture.tickets.model.tickets.Ticket;
+import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 import net.hackyourfuture.tickets.repository.AssigneeRepository;
 import net.hackyourfuture.tickets.repository.TicketRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ class TicketServiceTest {
         ticket.setTitle(dto.getTitle());
         ticket.setDescription(dto.getDescription());
         ticket.setProjectId(dto.getProjectId());
-        ticket.setStatus("open");
+        ticket.setStatus(TicketStatus.valueOf(TicketStatus.OPEN.name()));
 
         ticketService.createTicket(dto);
 
@@ -50,12 +51,12 @@ class TicketServiceTest {
         Ticket existingTicket = new Ticket();
         existingTicket.setId(1);
         existingTicket.setTitle("Old Title");
-        existingTicket.setStatus("open");
+        existingTicket.setStatus(TicketStatus.valueOf(TicketStatus.OPEN.name()));
 
         Mockito.when(ticketRepository.findTicketById(1)).thenReturn(existingTicket);
 
         UpdateTicketDTO dto = new UpdateTicketDTO();
-        dto.setStatus("closed");
+        dto.setStatus(TicketStatus.valueOf(TicketStatus.OPEN.name()));
 
         // Act
         ticketService.updateTicket(1, dto);

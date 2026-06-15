@@ -2,7 +2,7 @@ package net.hackyourfuture.tickets.controller;
 
 import net.hackyourfuture.tickets.dto.CreateTicketDTO;
 import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
-import net.hackyourfuture.tickets.model.Ticket;
+import net.hackyourfuture.tickets.model.tickets.Ticket;
 import net.hackyourfuture.tickets.service.TicketService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class TicketController {
     }
 
     @GetMapping
-    public List<Ticket> getAll(
+    public List<Ticket> getAllTicketS(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String status
     ) {
@@ -28,17 +28,17 @@ public class TicketController {
     }
 
     @GetMapping("/{id}")
-    public Ticket getById(@PathVariable int id) {
+    public Ticket getTicketById(@PathVariable int id) {
         return ticketService.getTicketById(id);
     }
 
     @PostMapping
-    public void create(@RequestBody CreateTicketDTO dto) {
+    public void createTicket(@RequestBody CreateTicketDTO dto) {
         ticketService.createTicket(dto);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody UpdateTicketDTO dto) {
+    public void updateTicket(@PathVariable int id, @RequestBody UpdateTicketDTO dto) {
         ticketService.updateTicket(id, dto);
     }
 

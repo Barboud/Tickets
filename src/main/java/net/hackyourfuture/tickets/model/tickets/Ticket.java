@@ -1,8 +1,9 @@
-package net.hackyourfuture.tickets.model;
+package net.hackyourfuture.tickets.model.tickets;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.hackyourfuture.tickets.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Ticket {
     private String title;
     private String description;
     private int projectId;
-    private String status;
+    private TicketStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<User> assignees;

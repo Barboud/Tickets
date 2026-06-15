@@ -3,7 +3,8 @@ package net.hackyourfuture.tickets.service;
 import lombok.RequiredArgsConstructor;
 import net.hackyourfuture.tickets.dto.CreateTicketDTO;
 import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
-import net.hackyourfuture.tickets.model.Ticket;
+import net.hackyourfuture.tickets.model.tickets.Ticket;
+import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 import net.hackyourfuture.tickets.repository.AssigneeRepository;
 import net.hackyourfuture.tickets.repository.TicketRepository;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class TicketService {
         ticket.setTitle(dto.getTitle());
         ticket.setDescription(dto.getDescription());
         ticket.setProjectId(dto.getProjectId());
-        ticket.setStatus("open");
+        ticket.setStatus(TicketStatus.OPEN);
         ticketRepository.saveTicket(ticket);
     }
 
@@ -44,7 +45,7 @@ public class TicketService {
         Ticket ticket = ticketRepository.findTicketById(id);
         if (dto.getTitle() != null) ticket.setTitle(dto.getTitle());
         if (dto.getDescription() != null) ticket.setDescription(dto.getDescription());
-        if (dto.getStatus() != null) ticket.setStatus(dto.getStatus());
+        if (dto.getStatus() != null) ticket.setStatus(TicketStatus.valueOf(String.valueOf(dto.getStatus())));
         if (dto.getProjectId() != null) ticket.setProjectId(dto.getProjectId());
         ticketRepository.updateTicket(ticket);
     }
