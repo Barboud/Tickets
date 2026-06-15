@@ -1,0 +1,54 @@
+package net.hackyourfuture.tickets.controller;
+
+import net.hackyourfuture.tickets.dto.CreateTicketDTO;
+import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
+import net.hackyourfuture.tickets.model.Ticket;
+import net.hackyourfuture.tickets.service.TicketService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/tickets")
+public class TicketController {
+
+    private final TicketService ticketService;
+
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    @GetMapping
+    public List<Ticket> getAll(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String status
+    ) {
+        return ticketService.searchTicket(title, status);
+    }
+
+    @GetMapping("/{id}")
+    public Ticket getById(@PathVariable int id) {
+        return ticketService.getTicketById(id);
+    }
+
+    @PostMapping
+    public void create(@RequestBody CreateTicketDTO dto) {
+        ticketService.createTicket(dto);
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable int id, @RequestBody UpdateTicketDTO dto) {
+        ticketService.updateTicket(id, dto);
+    }
+
+    @PostMapping("/{id}/assignees")
+    public void addAssignee(@PathVariable int id, @RequestBody Map<String, Integer> body) {
+        ticketService.addAssignee(id, body.get("userId"));
+    }
+
+    @DeleteMapping("/{id}/assignees/{userId}")
+    public void removeAssignee(@PathVariable int id, @PathVariable int userId) {
+        ticketService.removeAssignee(id, userId);
+    }
+}
