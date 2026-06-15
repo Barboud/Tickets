@@ -3,6 +3,7 @@ package net.hackyourfuture.tickets.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 
 @Data
 @NoArgsConstructor
@@ -10,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class UpdateTicketDTO {
     private String title;
     private String description;
-    private String status;
+    private TicketStatus status;
     private Integer projectId;
 }

@@ -1,7 +1,8 @@
 package net.hackyourfuture.tickets.repository;
 
 import lombok.RequiredArgsConstructor;
-import net.hackyourfuture.tickets.model.Ticket;
+import net.hackyourfuture.tickets.model.tickets.Ticket;
+import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,7 @@ public class TicketRepository {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getInt("project_id"),
-                        rs.getString("status"),
+                        TicketStatus.valueOf(rs.getString("status")),
                         rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
                         null
@@ -38,7 +39,7 @@ public class TicketRepository {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getInt("project_id"),
-                        rs.getString("status"),
+                        TicketStatus.valueOf(rs.getString("status")),
                         rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
                         null
@@ -50,14 +51,14 @@ public class TicketRepository {
     public void saveTicket(Ticket ticket) {
         jdbcTemplate.update(
                 "INSERT INTO tickets (title, description, project_id, status) VALUES (?, ?, ?, ?)",
-                ticket.getTitle(), ticket.getDescription(), ticket.getProjectId(), ticket.getStatus()
+                ticket.getTitle(), ticket.getDescription(), ticket.getProjectId(), ticket.getStatus().name()
         );
     }
 
     public void updateTicket(Ticket ticket) {
         jdbcTemplate.update(
                 "UPDATE tickets SET title = ?, description = ?, status = ?, project_id = ?, updated_at = NOW() WHERE id = ?",
-                ticket.getTitle(), ticket.getDescription(), ticket.getStatus(), ticket.getProjectId(), ticket.getId()
+                ticket.getTitle(), ticket.getDescription(), ticket.getStatus().name(), ticket.getProjectId(), ticket.getId()
         );
     }
 
@@ -81,7 +82,7 @@ public class TicketRepository {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getInt("project_id"),
-                        rs.getString("status"),
+                        TicketStatus.valueOf(rs.getString("status")),
                         rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
                         null
