@@ -29,6 +29,14 @@ public class UserRepository {
         );
     }
 
+    public User findUserByEmail(String email) {
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM users WHERE email = ?",
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("name"), rs.getString("email")),
+                email
+        );
+    }
+
     public void saveUser(User user) {
         jdbcTemplate.update(
                 "INSERT INTO users (name, email) VALUES (?, ?)",
