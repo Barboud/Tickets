@@ -2,8 +2,8 @@ package net.hackyourfuture.tickets.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.hackyourfuture.tickets.dto.CreateUserDTO;
-import net.hackyourfuture.tickets.dto.UpdateUserDTO;
+import net.hackyourfuture.tickets.dto.users.CreateUserDTO;
+import net.hackyourfuture.tickets.dto.users.UpdateUserDTO;
 import net.hackyourfuture.tickets.model.User;
 import net.hackyourfuture.tickets.service.UserService;
 import org.springframework.http.ResponseEntity;

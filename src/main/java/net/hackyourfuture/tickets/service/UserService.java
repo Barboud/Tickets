@@ -1,8 +1,8 @@
 package net.hackyourfuture.tickets.service;
 
 import lombok.RequiredArgsConstructor;
-import net.hackyourfuture.tickets.dto.CreateUserDTO;
-import net.hackyourfuture.tickets.dto.UpdateUserDTO;
+import net.hackyourfuture.tickets.dto.users.CreateUserDTO;
+import net.hackyourfuture.tickets.dto.users.UpdateUserDTO;
 import net.hackyourfuture.tickets.model.User;
 import net.hackyourfuture.tickets.repository.UserRepository;
 import org.springframework.stereotype.Service;

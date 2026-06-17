@@ -1,20 +1,16 @@
-package net.hackyourfuture.tickets.dto;
+package net.hackyourfuture.tickets.dto.tickets;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateTicketDTO {
-    @NotBlank
+public class UpdateTicketDTO {
     private String title;
-
     private String description;
-
-    @NotNull
+    private TicketStatus status;
     private Integer projectId;
 }

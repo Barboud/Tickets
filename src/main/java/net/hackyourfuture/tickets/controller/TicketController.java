@@ -1,7 +1,7 @@
 package net.hackyourfuture.tickets.controller;
 
-import net.hackyourfuture.tickets.dto.CreateTicketDTO;
-import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
+import net.hackyourfuture.tickets.dto.tickets.CreateTicketDTO;
+import net.hackyourfuture.tickets.dto.tickets.UpdateTicketDTO;
 import net.hackyourfuture.tickets.model.tickets.Ticket;
 import net.hackyourfuture.tickets.service.TicketService;
 import org.springframework.web.bind.annotation.*;
