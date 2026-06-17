@@ -62,14 +62,14 @@ public class TicketRepository {
         );
     }
 
-    public List<Ticket> searchTicket(String text, String status) {
+    public List<Ticket> searchTicket(String search, String status) {
         StringBuilder sql = new StringBuilder("SELECT * FROM tickets WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
-        if (text != null && !text.isBlank()) {
+        if (search != null && !search.isBlank()) {
             sql.append(" AND (title ILIKE ? OR description ILIKE ?)");
-            params.add("%" + text + "%");
-            params.add("%" + text + "%");
+            params.add("%" + search + "%");
+            params.add("%" + search + "%");
         }
         if (status != null && !status.isBlank()) {
             sql.append(" AND status = ?");

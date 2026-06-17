@@ -19,12 +19,14 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
+    // GET //tickets?search=...&status=... - search/filter tickets.
+    // No filter rerun all
     @GetMapping
     public List<Ticket> getAllTicketS(
-            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String search,
             @RequestParam(required = false) String status
     ) {
-        return ticketService.searchTicket(text, status);
+        return ticketService.searchTicket(search, status);
     }
 
     @GetMapping("/{id}")

@@ -19,8 +19,8 @@ public class TicketService {
     private final AssigneeRepository assigneeRepository;
     private final EmailService emailService;
 
-    public List<Ticket> searchTicket(String text, String status) {
-        List<Ticket> tickets = ticketRepository.searchTicket(text, status);
+    public List<Ticket> searchTicket(String search, String status) {
+        List<Ticket> tickets = ticketRepository.searchTicket(search, status);
         for (Ticket ticket : tickets) {
             ticket.setAssignees(assigneeRepository.findUsersByTicketId(ticket.getId()));
         }
