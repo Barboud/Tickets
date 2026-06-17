@@ -21,10 +21,10 @@ public class TicketController {
 
     @GetMapping
     public List<Ticket> getAllTicketS(
-            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String text,
             @RequestParam(required = false) String status
     ) {
-        return ticketService.searchTicket(title, status);
+        return ticketService.searchTicket(text, status);
     }
 
     @GetMapping("/{id}")
