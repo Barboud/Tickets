@@ -21,7 +21,7 @@ public class TicketController {
     }
 
     // GET //tickets?search=...&status=... - search/filter tickets.
-    // No filter rerun all
+    // No filter return all
     @GetMapping
     public List<Ticket> getAllTicketS(
             @RequestParam(required = false) String search,
