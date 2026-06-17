@@ -19,12 +19,5 @@ public class ProjectRepository {
                 (rs, rowNum) -> new Project(rs.getInt("id"), rs.getString("name"))
         );
     }
-
-    public Project findProjectById(int id) {
-        return jdbcTemplate.queryForObject(
-                "SELECT * FROM projects WHERE id = ?",
-                (rs, rowNum) -> new Project(rs.getInt("id"), rs.getString("name")),
-                id
-        );
-    }
+    
 }
