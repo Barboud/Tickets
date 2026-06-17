@@ -17,6 +17,7 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final AssigneeRepository assigneeRepository;
+    private final EmailService emailService;
 
     public List<Ticket> searchTicket(String text, String status) {
         List<Ticket> tickets = ticketRepository.searchTicket(text, status);
@@ -48,6 +49,9 @@ public class TicketService {
         if (dto.getStatus() != null) ticket.setStatus(TicketStatus.valueOf(String.valueOf(dto.getStatus())));
         if (dto.getProjectId() != null) ticket.setProjectId(dto.getProjectId());
         ticketRepository.updateTicket(ticket);
+
+        ticket.setAssignees(assigneeRepository.findUsersByTicketId(id));
+        emailService.sendTicketUpdate(ticket);
     }
 
     public void addAssignee(int ticketId, int userId) {
