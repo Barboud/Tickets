@@ -6,6 +6,7 @@ import net.hackyourfuture.tickets.model.tickets.Ticket;
 import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 import net.hackyourfuture.tickets.repository.AssigneeRepository;
 import net.hackyourfuture.tickets.repository.TicketRepository;
+import net.hackyourfuture.tickets.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,7 +27,8 @@ class TicketServiceTest {
         ticketRepository = Mockito.mock(TicketRepository.class);
         assigneeRepository = Mockito.mock(AssigneeRepository.class);
         EmailService emailService = Mockito.mock(EmailService.class);
-        ticketService = new TicketService(ticketRepository, assigneeRepository, emailService);
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        ticketService = new TicketService(ticketRepository, userRepository, assigneeRepository, emailService);
     }
 
     @Test
