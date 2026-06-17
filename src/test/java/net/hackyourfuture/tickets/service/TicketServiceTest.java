@@ -24,7 +24,8 @@ class TicketServiceTest {
     void setUp() {
         ticketRepository = Mockito.mock(TicketRepository.class);
         assigneeRepository = Mockito.mock(AssigneeRepository.class);
-        ticketService = new TicketService(ticketRepository, assigneeRepository);
+        EmailService emailService = Mockito.mock(EmailService.class);
+        ticketService = new TicketService(ticketRepository, assigneeRepository, emailService);
     }
 
     @Test
