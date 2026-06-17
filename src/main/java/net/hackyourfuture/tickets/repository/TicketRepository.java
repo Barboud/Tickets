@@ -15,22 +15,6 @@ public class TicketRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Ticket> findAllTickets() {
-        return jdbcTemplate.query(
-                "SELECT * FROM tickets",
-                (rs, rowNum) -> new Ticket(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getInt("project_id"),
-                        TicketStatus.valueOf(rs.getString("status")),
-                        rs.getTimestamp("created_at").toLocalDateTime(),
-                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
-                        null
-                )
-        );
-    }
-
     public Ticket findTicketById(int id) {
         return jdbcTemplate.queryForObject(
                 "SELECT * FROM tickets WHERE id = ?",
