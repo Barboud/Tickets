@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class Project {
     private int id;
     private String name;
+    private int open;
+    private int inProgress;
+    private int closed;
 }
