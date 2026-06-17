@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable int id, @Valid @RequestBody UpdateUserDTO dto) {
-        userService.updateUser(id, dto);
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable int id, @Valid @RequestBody UpdateUserDTO dto) {
+        return userService.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")

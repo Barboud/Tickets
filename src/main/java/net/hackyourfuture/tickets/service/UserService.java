@@ -22,8 +22,13 @@ public class UserService {
         return userRepository.findAllUsers();
     }
 
-    public User getUserById(int id) {
-        return userRepository.findUserById(id);
+    public ResponseEntity<?> getUserById(int id) {
+        try {
+            User user = userRepository.findUserById(id);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(Map.of("message", "User not found with id: " + id));
+        }
     }
 
     public void createUser(CreateUserDTO dto) {
@@ -33,11 +38,17 @@ public class UserService {
         userRepository.saveUser(user);
     }
 
-    public void updateUser(int id, UpdateUserDTO dto) {
-        User user = userRepository.findUserById(id);
+    public ResponseEntity<Map<String, String>> updateUser(int id, UpdateUserDTO dto) {
+        User user;
+        try {
+            user = userRepository.findUserById(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(Map.of("message", "User not found with id: " + id));
+        }
         if (dto.getName() != null) user.setName(dto.getName());
         if (dto.getEmail() != null) user.setEmail(dto.getEmail());
         userRepository.updateUser(user);
+        return ResponseEntity.ok(Map.of("message", "User updated successfully"));
     }
 
     public ResponseEntity<Map<String, String>> deleteUser(int id) {
