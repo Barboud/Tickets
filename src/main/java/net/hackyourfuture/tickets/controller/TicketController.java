@@ -1,5 +1,6 @@
 package net.hackyourfuture.tickets.controller;
 
+import jakarta.validation.Valid;
 import net.hackyourfuture.tickets.dto.tickets.CreateTicketDTO;
 import net.hackyourfuture.tickets.dto.tickets.UpdateTicketDTO;
 import net.hackyourfuture.tickets.model.tickets.Ticket;
@@ -40,7 +41,7 @@ public class TicketController {
     }
 
     @PutMapping("/{id}")
-    public void updateTicket(@PathVariable int id, @RequestBody UpdateTicketDTO dto) {
+    public void updateTicket(@PathVariable int id,@Valid @RequestBody UpdateTicketDTO dto) {
         ticketService.updateTicket(id, dto);
     }
 
