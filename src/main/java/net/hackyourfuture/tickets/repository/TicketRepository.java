@@ -15,22 +15,6 @@ public class TicketRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public List<Ticket> findAllTickets() {
-        return jdbcTemplate.query(
-                "SELECT * FROM tickets",
-                (rs, rowNum) -> new Ticket(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getInt("project_id"),
-                        TicketStatus.valueOf(rs.getString("status")),
-                        rs.getTimestamp("created_at").toLocalDateTime(),
-                        rs.getTimestamp("updated_at") != null ? rs.getTimestamp("updated_at").toLocalDateTime() : null,
-                        null
-                )
-        );
-    }
-
     public Ticket findTicketById(int id) {
         return jdbcTemplate.queryForObject(
                 "SELECT * FROM tickets WHERE id = ?",
@@ -62,14 +46,14 @@ public class TicketRepository {
         );
     }
 
-    public List<Ticket> searchTicket(String text, String status) {
+    public List<Ticket> searchTicket(String search, String status) {
         StringBuilder sql = new StringBuilder("SELECT * FROM tickets WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
-        if (text != null && !text.isBlank()) {
+        if (search != null && !search.isBlank()) {
             sql.append(" AND (title ILIKE ? OR description ILIKE ?)");
-            params.add("%" + text + "%");
-            params.add("%" + text + "%");
+            params.add("%" + search + "%");
+            params.add("%" + search + "%");
         }
         if (status != null && !status.isBlank()) {
             sql.append(" AND status = ?");

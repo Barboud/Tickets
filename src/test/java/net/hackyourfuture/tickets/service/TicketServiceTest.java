@@ -1,14 +1,16 @@
 package net.hackyourfuture.tickets.service;
 
-import net.hackyourfuture.tickets.dto.CreateTicketDTO;
-import net.hackyourfuture.tickets.dto.UpdateTicketDTO;
+import net.hackyourfuture.tickets.dto.tickets.CreateTicketDTO;
+import net.hackyourfuture.tickets.dto.tickets.UpdateTicketDTO;
 import net.hackyourfuture.tickets.model.tickets.Ticket;
 import net.hackyourfuture.tickets.model.tickets.TicketStatus;
 import net.hackyourfuture.tickets.repository.AssigneeRepository;
 import net.hackyourfuture.tickets.repository.TicketRepository;
+import net.hackyourfuture.tickets.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 
@@ -25,7 +27,8 @@ class TicketServiceTest {
         ticketRepository = Mockito.mock(TicketRepository.class);
         assigneeRepository = Mockito.mock(AssigneeRepository.class);
         EmailService emailService = Mockito.mock(EmailService.class);
-        ticketService = new TicketService(ticketRepository, assigneeRepository, emailService);
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        ticketService = new TicketService(ticketRepository, userRepository, assigneeRepository, emailService);
     }
 
     @Test
@@ -78,10 +81,11 @@ class TicketServiceTest {
         Mockito.when(assigneeRepository.findUsersByTicketId(1)).thenReturn(new ArrayList<>());
 
         // Act
-        Ticket result = ticketService.getTicketById(1);
+        ResponseEntity<?> result = ticketService.getTicketById(1);
+        Ticket ticket = (Ticket) result.getBody();
 
         // Assert
-        assertEquals(1, result.getId());
-        assertEquals("Test Ticket", result.getTitle());
+        assertEquals(1, ticket.getId());
+        assertEquals("Test Ticket", ticket.getTitle());
     }
 }

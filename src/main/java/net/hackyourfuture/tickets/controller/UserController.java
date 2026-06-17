@@ -2,14 +2,15 @@ package net.hackyourfuture.tickets.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.hackyourfuture.tickets.dto.CreateUserDTO;
-import net.hackyourfuture.tickets.dto.UpdateUserDTO;
+import net.hackyourfuture.tickets.dto.users.CreateUserDTO;
+import net.hackyourfuture.tickets.dto.users.UpdateUserDTO;
 import net.hackyourfuture.tickets.model.User;
 import net.hackyourfuture.tickets.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
@@ -34,14 +35,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable int id, @Valid @RequestBody UpdateUserDTO dto) {
-        userService.updateUser(id, dto);
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable int id, @Valid @RequestBody UpdateUserDTO dto) {
+        return userService.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
-        // return 204
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable int id) {
+        return userService.deleteUser(id);
     }
 }
