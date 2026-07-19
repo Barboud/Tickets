@@ -1,6 +1,6 @@
 # API Design document
 
-# 1\. Database diagram
+# 1\. Database diagram 
 
 Draw an ER diagram of your schema: tables, columns (with types), primary and foreign keys, and the relationships between them.
 
