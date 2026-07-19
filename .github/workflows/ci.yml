@@ -13,6 +13,7 @@ jobs:
         image: postgres:18
         env:
           POSTGRES_DB: testdb
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
@@ -31,7 +32,7 @@ jobs:
       - name: Run tests
         run: mvn --batch-mode verify
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/testdb
-          SPRING_DATASOURCE_USERNAME: postgres
-          SPRING_DATASOURCE_PASSWORD: postgres
+          DB_URL: jdbc:postgresql://localhost:5432/testdb
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
           RESEND_API: test-key-not-real
