@@ -46,7 +46,7 @@ class TicketServiceTest {
 
         ticketService.createTicket(dto);
 
-        assertEquals("open", ticket.getStatus());
+        assertEquals(TicketStatus.OPEN, ticket.getStatus());
     }
 
     @Test
