@@ -37,3 +37,23 @@ jobs:
           DB_USERNAME: postgres
           DB_PASSWORD: postgres
           RESEND_API: test-key-not-real
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Build image
+        run: >
+          docker build
+          -t ghcr.io/barboud/tickets:latest
+          -t ghcr.io/barboud/tickets:${{ github.sha }}
+          .
+      - name: Push image
+        run: docker push --all-tags ghcr.io/barboud/tickets
