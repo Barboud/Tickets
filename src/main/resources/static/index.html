@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets — Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1><span class="dot"></span> Tickets</h1>
+    <div class="api-config">
+        <span>API Base URL:</span>
+        <input id="apiBase" value="" placeholder="Leave empty = same server (relative URLs like /users)" />
+        <button class="btn-secondary btn-sm" onclick="checkConnection()">Test connection</button>
+        <span id="status-pill">Unknown</span>
+    </div>
+</header>
+
+<main>
+
+    <div class="grid-2">
+
+        <!-- USERS -->
+        <section class="card">
+            <h2>👤 Users</h2>
+            <div class="row">
+                <input id="userName" placeholder="Name" />
+                <input id="userEmail" placeholder="Email" />
+                <button class="btn-primary" onclick="createUser()">Add</button>
+            </div>
+            <button class="btn-secondary btn-sm" onclick="loadUsers()">Refresh list</button>
+            <table>
+                <thead><tr><th>ID</th><th>Name</th><th>Email</th><th></th></tr></thead>
+                <tbody id="usersTable"><tr><td colspan="4" class="empty">Click "Refresh list"</td></tr></tbody>
+            </table>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="card">
+            <h2>📁 Projects</h2>
+            <button class="btn-secondary btn-sm" onclick="loadProjects()">Refresh list</button>
+            <table>
+                <thead><tr><th>ID</th><th>Name</th></tr></thead>
+                <tbody id="projectsTable"><tr><td colspan="2" class="empty">Click "Refresh list"</td></tr></tbody>
+            </table>
+            <p class="hint">No endpoint to create a project in the current design.</p>
+        </section>
+
+    </div>
+
+    <!-- TICKETS -->
+    <section class="card">
+        <h2>🎫 Tickets</h2>
+
+        <div class="row">
+            <input id="ticketTitle" placeholder="Title" />
+            <input id="ticketDesc" placeholder="Description" />
+            <input id="ticketProjectId" placeholder="Project ID" style="max-width:110px" />
+            <button class="btn-primary" onclick="createTicket()">Create ticket</button>
+        </div>
+
+        <div class="row">
+            <input id="filterTitle" placeholder="Search by title" />
+            <input id="filterDesc" placeholder="Search by description" />
+            <select id="filterStatus">
+                <option value="">All statuses</option>
+                <option value="open">open</option>
+                <option value="in_progress">in_progress</option>
+                <option value="closed">closed</option>
+            </select>
+            <button class="btn-secondary" onclick="loadTickets()">Search / Refresh</button>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th><th>Title</th><th>Description</th><th>Status</th><th>Project</th><th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="ticketsTable"><tr><td colspan="6" class="empty">Click "Search / Refresh"</td></tr></tbody>
+        </table>
+    </section>
+
+    <!-- LOG -->
+    <section class="card">
+        <h2>📋 Request log</h2>
+        <div class="log" id="log">Ready.</div>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
