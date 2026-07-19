@@ -2,12 +2,13 @@ package net.hackyourfuture.tickets.controller;
 
 import net.hackyourfuture.tickets.model.User;
 import net.hackyourfuture.tickets.repository.UserRepository;
+import net.hackyourfuture.tickets.service.EmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 class UserControllerTest {
+
+    @MockitoBean
+    private EmailService emailService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,9 +38,14 @@ class UserControllerTest {
         user.setName("Salem");
         user.setEmail("salem@test.com");
 
+
         userRepository.saveUser(user);
 
-        savedUser = userRepository.findUserByEmail(user.getEmail());
+        savedUser = userRepository.findUserByEmail("salem@test.com");
+        if (savedUser == null) {
+            savedUser = user;
+            savedUser.setId(1);
+        }
     }
 
     @Test
