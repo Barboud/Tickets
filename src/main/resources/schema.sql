@@ -1,16 +1,15 @@
-
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE projects (
+CREATE TABLE IF NOT EXISTS projects (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL
 );
 
-CREATE TABLE tickets (
+CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
@@ -21,7 +20,7 @@ CREATE TABLE tickets (
     FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 
-CREATE TABLE assignees (
+CREATE TABLE IF NOT EXISTS assignees (
     id SERIAL PRIMARY KEY,
     ticket_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -30,5 +29,5 @@ CREATE TABLE assignees (
     UNIQUE (ticket_id, user_id)
 );
 
-CREATE INDEX tickets_title_idx ON tickets(title);
-CREATE INDEX tickets_description_idx ON tickets(description);
+CREATE INDEX IF NOT EXISTS tickets_title_idx ON tickets(title);
+CREATE INDEX IF NOT EXISTS tickets_description_idx ON tickets(description);

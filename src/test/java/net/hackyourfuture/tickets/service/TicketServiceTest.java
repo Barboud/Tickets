@@ -46,7 +46,7 @@ class TicketServiceTest {
 
         ticketService.createTicket(dto);
 
-        assertEquals("open", ticket.getStatus());
+        assertEquals(TicketStatus.OPEN, ticket.getStatus());
     }
 
     @Test
@@ -60,13 +60,13 @@ class TicketServiceTest {
         Mockito.when(ticketRepository.findTicketById(1)).thenReturn(existingTicket);
 
         UpdateTicketDTO dto = new UpdateTicketDTO();
-        dto.setStatus(TicketStatus.valueOf(TicketStatus.OPEN.name()));
+        dto.setStatus(TicketStatus.valueOf(TicketStatus.CLOSED.name()));
 
         // Act
         ticketService.updateTicket(1, dto);
 
         // Assert
-        assertEquals("closed", existingTicket.getStatus());
+        assertEquals(TicketStatus.CLOSED, existingTicket.getStatus());
         assertEquals("Old Title", existingTicket.getTitle());
     }
 
